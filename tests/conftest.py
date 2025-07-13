@@ -2,6 +2,8 @@
 import os
 import glob
 import random
+from pathlib import Path
+
 import pytest
 
 from two_tsp.loader import load_instance
@@ -72,8 +74,9 @@ def local_search_optimized_solvers():
 
 @pytest.fixture(scope="session")
 def instances():
-    pattern = os.path.join("tests", "test_instances", "*.tsp")
-    return glob.glob(pattern)
+    repo_root = Path(__file__).resolve().parents[1]
+    tsp_path = repo_root / "tests" / "test_instances" / "*.tsp"
+    return glob.glob(str(tsp_path))
 
 
 @pytest.fixture(autouse=True)
