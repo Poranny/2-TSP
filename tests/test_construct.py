@@ -14,16 +14,23 @@ def test_solution_validity(
         n = len(coords)
         all_nodes = set(range(n))
 
-        assert set(c1).isdisjoint(c2), \
-            f"{solver_name}: Cycles overlap on {os.path.basename(tsp_file)}"
-        assert set(c1) | set(c2) == all_nodes, \
-            f"{solver_name}: Not all nodes covered on {os.path.basename(tsp_file)}"
-
+        assert set(c1).isdisjoint(
+            c2
+        ), f"{solver_name}: Cycles overlap on {os.path.basename(tsp_file)}"
+        assert (
+            set(c1) | set(c2) == all_nodes
+        ), f"{solver_name}: Not all nodes covered on {os.path.basename(tsp_file)}"
 
 
 @pytest.mark.parametrize("solver_name", ["nn", "cycle", "regret", "wregret"])
 def test_heuristic_better_than_random(
-    solver_name, load_instance_fn, compute_distance_matrix_fn, solvers, instances, cycles_cost_fn):
+    solver_name,
+    load_instance_fn,
+    compute_distance_matrix_fn,
+    solvers,
+    instances,
+    cycles_cost_fn,
+):
     random_solver = solvers["random"]
     heuristic_solver = solvers[solver_name]
 
