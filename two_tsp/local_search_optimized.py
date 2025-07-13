@@ -64,7 +64,7 @@ def local_search_with_move_list(
 
     while move_list:
         delta, move_type, (i, j), edges_c1, edges_c2 = move_list.pop(0)
-        new_move_list :List[Move] = []
+        new_move_list: List[Move] = []
         if move_type == "2opt1":
             status = check_all_edges(c1, edges_c1)
             if status == 0:
