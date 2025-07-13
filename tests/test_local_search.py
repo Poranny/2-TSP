@@ -24,6 +24,7 @@ def test_local_search_improves(
 
         assert set(new_c1).isdisjoint(new_c2), f"{method_name}: overlap on {os.path.basename(tsp_file)}"
         assert set(new_c1) | set(new_c2) == all_nodes, f"{method_name}: coverage on {os.path.basename(tsp_file)}"
+        assert abs(len(new_c1) - len(new_c2)) <= 1, f"{method_name}: Cycles are of different length on {os.path.basename(tsp_file)}"
 
         cost_initial = cycles_cost_fn(dm, initial_c1, initial_c2)
         cost_new = cycles_cost_fn(dm, new_c1, new_c2)

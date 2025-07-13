@@ -17,6 +17,8 @@ from two_tsp.local_search import (
     local_steepest_vertices, local_steepest_edges, local_greedy_vertices,
     local_greedy_edges, random_walk
 )
+from two_tsp.local_search_optimized import local_search_with_move_list, local_search_with_candidates
+
 
 @pytest.fixture(scope="session")
 def load_instance_fn():
@@ -51,6 +53,12 @@ def local_search_solvers():
         "greedy_vertices": local_greedy_vertices,
         "greedy_edges": local_greedy_edges,
         "random_walk": random_walk,
+    }
+@pytest.fixture(scope="session")
+def local_search_optimized_solvers():
+    return {
+        "move_list": local_search_with_move_list,
+        "candidates": local_search_with_candidates,
     }
 
 @pytest.fixture(scope="session")

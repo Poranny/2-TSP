@@ -305,7 +305,6 @@ def local_search_with_move_list(cycle1, cycle2, distance_matrix):
 
 def local_search_with_candidates(cycle1, cycle2, distance_matrix, k=10):
 
-
     c1 = cycle1[:]
     c2 = cycle2[:]
 
@@ -368,34 +367,6 @@ def local_search_with_candidates(cycle1, cycle2, distance_matrix, k=10):
                         best_move = (i, j)
                         best_type = "2opt2"
 
-        for i in range(n1):
-            i_prev = (i - 1) % n1
-            i_next = (i + 1) % n1
-            v_i = c1[i]
-            v_i_prev = c1[i_prev]
-            v_i_next = c1[i_next]
-
-            for j in range(n2):
-                j_prev = (j - 1) % n2
-                j_next = (j + 1) % n2
-                v_j = c2[j]
-                v_j_prev = c2[j_prev]
-                v_j_next = c2[j_next]
-
-                if (v_j in nearest_neighbors[v_i_prev] or
-                        v_j in nearest_neighbors[v_i_next] or
-                        v_i in nearest_neighbors[v_j_prev] or
-                        v_i in nearest_neighbors[v_j_next] or
-                        v_i_prev in nearest_neighbors[v_j] or
-                        v_i_next in nearest_neighbors[v_j] or
-                        v_j_prev in nearest_neighbors[v_i] or
-                        v_j_next in nearest_neighbors[v_i]):
-
-                    d = delta_between(distance_matrix, c1, c2, i, j)
-                    if d < best_delta:
-                        best_delta = d
-                        best_move = (i, j)
-                        best_type = "swap"
 
         if best_delta < 0:
             improved = True
@@ -407,9 +378,4 @@ def local_search_with_candidates(cycle1, cycle2, distance_matrix, k=10):
             elif best_type == "2opt2":
                 i, j = best_move
                 c2 = apply_2opt(c2, i, j)
-
-            elif best_type == "swap":
-                i, j = best_move
-                apply_between(c1, c2, i, j)
-
     return c1, c2
