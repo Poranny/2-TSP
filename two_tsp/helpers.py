@@ -15,8 +15,8 @@ def compute_distance_matrix(coordinates: List[tuple[float, float]]) -> List[List
     return matrix
 
 
-def cycle_cost(distance_matrix: List[List[int]], cycle: List[int]) -> int:
-    cost = 0
+def cycle_cost(distance_matrix: List[List[float]], cycle: List[int]) -> float:
+    cost = 0.0
     for i in range(len(cycle) - 1):
         cost += distance_matrix[cycle[i]][cycle[i + 1]]
     cost += distance_matrix[cycle[-1]][cycle[0]]
@@ -24,26 +24,33 @@ def cycle_cost(distance_matrix: List[List[int]], cycle: List[int]) -> int:
 
 
 def cycles_cost(
-    distance_matrix: List[List[int]], cycle1: List[int], cycle2: List[int]
-) -> int:
+    distance_matrix: List[List[float]], cycle1: List[int], cycle2: List[int]
+) -> float:
     return cycle_cost(distance_matrix, cycle1) + cycle_cost(distance_matrix, cycle2)
 
-def delta_vertex(distance_matrix: List[List[int]], cycle: List[int], i: int, j: int) -> int:
+
+def delta_vertex(
+    distance_matrix: List[List[float]], cycle: List[int], i: int, j: int
+) -> float:
     before = cycle_cost(distance_matrix, cycle)
     cycle[i], cycle[j] = cycle[j], cycle[i]
     after = cycle_cost(distance_matrix, cycle)
     cycle[i], cycle[j] = cycle[j], cycle[i]
     return after - before
 
-def delta_edge(distance_matrix: List[List[int]], cycle: List[int], i: int, j: int) -> int:
+
+def delta_edge(
+    distance_matrix: List[List[float]], cycle: List[int], i: int, j: int
+) -> float:
     before = cycle_cost(distance_matrix, cycle)
     new_cycle = cycle[: i + 1] + list(reversed(cycle[i + 1 : j + 1])) + cycle[j + 1 :]
     after = cycle_cost(distance_matrix, new_cycle)
     return after - before
 
+
 def delta_2opt(
-    distance_matrix: List[List[int]], cycle: List[int], i: int, j: int
-) -> int:
+    distance_matrix: List[List[float]], cycle: List[int], i: int, j: int
+) -> float:
     n = len(cycle)
     a, b = cycle[i], cycle[(i + 1) % n]
     c, d = cycle[j], cycle[(j + 1) % n]
@@ -51,31 +58,43 @@ def delta_2opt(
     addition = distance_matrix[a][c] + distance_matrix[b][d]
     return addition - removal
 
+
 def apply_2opt(cycle: List[int], i: int, j: int) -> List[int]:
     return cycle[: i + 1] + list(reversed(cycle[i + 1 : j + 1])) + cycle[j + 1 :]
 
+
 def delta_between(
-    distance_matrix: List[List[int]],
+    distance_matrix: List[List[float]],
     cycle1: List[int],
     cycle2: List[int],
     i: int,
     j: int,
-) -> int:
+) -> float:
     n1, n2 = len(cycle1), len(cycle2)
     v1, v2 = cycle1[i], cycle2[j]
     p1, n1p = cycle1[i - 1], cycle1[(i + 1) % n1]
     p2, n2p = cycle2[j - 1], cycle2[(j + 1) % n2]
-    before = distance_matrix[p1][v1] + distance_matrix[v1][n1p] + distance_matrix[p2][v2] + distance_matrix[v2][n2p]
-    after = distance_matrix[p1][v2] + distance_matrix[v2][n1p] + distance_matrix[p2][v1] + distance_matrix[v1][n2p]
+    before = (
+        distance_matrix[p1][v1]
+        + distance_matrix[v1][n1p]
+        + distance_matrix[p2][v2]
+        + distance_matrix[v2][n2p]
+    )
+    after = (
+        distance_matrix[p1][v2]
+        + distance_matrix[v2][n1p]
+        + distance_matrix[p2][v1]
+        + distance_matrix[v1][n2p]
+    )
     return after - before
 
-def apply_between(
-    cycle1: List[int], cycle2: List[int], i: int, j: int
-) -> None:
+
+def apply_between(cycle1: List[int], cycle2: List[int], i: int, j: int) -> None:
     cycle1[i], cycle2[j] = cycle2[j], cycle1[i]
 
+
 def find_nearest_neighbors(
-    distance_matrix: List[List[int]], k: int = 10
+    distance_matrix: List[List[float]], k: int = 10
 ) -> List[List[int]]:
     n = len(distance_matrix)
     result: List[List[int]] = []
@@ -87,6 +106,7 @@ def find_nearest_neighbors(
         result.append([j for j, _ in distances[:k]])
     return result
 
+
 def is_edge_in_same_orientation(cycle: List[int], edge: Tuple[int, int]) -> bool:
     n = len(cycle)
     for idx in range(n):
@@ -94,9 +114,8 @@ def is_edge_in_same_orientation(cycle: List[int], edge: Tuple[int, int]) -> bool
             return True
     return False
 
-def check_all_edges(
-    cycle: List[int], edges: List[Tuple[int, int]]
-) -> int:
+
+def check_all_edges(cycle: List[int], edges: List[Tuple[int, int]]) -> int:
     any_reversed = False
     for e in edges:
         if is_edge_in_same_orientation(cycle, e):
@@ -106,6 +125,7 @@ def check_all_edges(
         else:
             return 0
     return 1 if any_reversed else 2
+
 
 def check_all_edges_two_cycles(
     c1: List[int],

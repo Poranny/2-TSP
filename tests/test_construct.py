@@ -5,7 +5,11 @@ import pytest
 
 @pytest.mark.parametrize("solver_name", ["nn", "cycle", "regret", "wregret"])
 def test_solution_validity(
-    solver_name, load_instance_fn, compute_distance_matrix_fn, construct_solvers, instances
+    solver_name,
+    load_instance_fn,
+    compute_distance_matrix_fn,
+    construct_solvers,
+    instances,
 ) -> None:
     for tsp_file in instances:
         coords = load_instance_fn(tsp_file)
@@ -21,7 +25,9 @@ def test_solution_validity(
         assert (
             set(c1) | set(c2) == all_nodes
         ), f"{solver_name}: Not all nodes covered on {os.path.basename(tsp_file)}"
-        assert abs(len(c1) - len(c2)) <= 1, f"{solver_name}: Cycles are of different length on {os.path.basename(tsp_file)}"
+        assert (
+            abs(len(c1) - len(c2)) <= 1
+        ), f"{solver_name}: Cycles are of different length on {os.path.basename(tsp_file)}"
 
 
 @pytest.mark.parametrize("solver_name", ["nn", "cycle", "regret", "wregret"])
@@ -29,7 +35,7 @@ def test_heuristic_better_than_random(
     solver_name,
     load_instance_fn,
     compute_distance_matrix_fn,
-        construct_solvers,
+    construct_solvers,
     instances,
     cycles_cost_fn,
 ) -> None:

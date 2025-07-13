@@ -1,6 +1,5 @@
 # mypy: disable-error-code=no-untyped-def
 import os
-import sys
 import glob
 import random
 import pytest
@@ -14,10 +13,16 @@ from two_tsp.construct import (
     generate_random_two_cycles,
 )
 from two_tsp.local_search import (
-    local_steepest_vertices, local_steepest_edges, local_greedy_vertices,
-    local_greedy_edges, random_walk
+    local_steepest_vertices,
+    local_steepest_edges,
+    local_greedy_vertices,
+    local_greedy_edges,
+    random_walk,
 )
-from two_tsp.local_search_optimized import local_search_with_move_list, local_search_with_candidates
+from two_tsp.local_search_optimized import (
+    local_search_with_move_list,
+    local_search_with_candidates,
+)
 
 
 @pytest.fixture(scope="session")
@@ -45,6 +50,7 @@ def construct_solvers():
         "random": lambda dm: generate_random_two_cycles(len(dm)),
     }
 
+
 @pytest.fixture(scope="session")
 def local_search_solvers():
     return {
@@ -54,12 +60,15 @@ def local_search_solvers():
         "greedy_edges": local_greedy_edges,
         "random_walk": random_walk,
     }
+
+
 @pytest.fixture(scope="session")
 def local_search_optimized_solvers():
     return {
         "move_list": local_search_with_move_list,
         "candidates": local_search_with_candidates,
     }
+
 
 @pytest.fixture(scope="session")
 def instances():

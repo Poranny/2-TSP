@@ -1,3 +1,4 @@
+# mypy: disable-error-code=no-untyped-def
 import time
 import pytest
 
@@ -8,10 +9,13 @@ from two_tsp.local_search_optimized import (
 )
 
 
-@pytest.mark.parametrize("opt_name,opt_fn", [
-    ("move_list", local_search_with_move_list),
-    ("candidates", local_search_with_candidates),
-])
+@pytest.mark.parametrize(
+    "opt_name,opt_fn",
+    [
+        ("move_list", local_search_with_move_list),
+        ("candidates", local_search_with_candidates),
+    ],
+)
 def test_local_search_optimized_validity_and_cost(
     opt_name: str,
     opt_fn,
@@ -28,7 +32,6 @@ def test_local_search_optimized_validity_and_cost(
         c1, c2 = construct_solvers["regret"](dm)
         cost_before = cycles_cost_fn(dm, c1, c2)
 
-
         c1_opt, c2_opt = opt_fn(c1, c2, dm)
         cost_after = cycles_cost_fn(dm, c1_opt, c2_opt)
 
@@ -36,12 +39,16 @@ def test_local_search_optimized_validity_and_cost(
         all_nodes = set(range(n))
 
         assert set(c1_opt).isdisjoint(c2_opt), f"{opt_name}: overlap on {tsp_file}"
-        assert (set(c1_opt) | set(c2_opt)) == all_nodes, f"{opt_name}: coverage on {tsp_file}"
-        assert abs(len(c1_opt) - len(c2_opt)) <= 1, f"{opt_name}: Cycles are of different length on {tsp_file}"
+        assert (
+            set(c1_opt) | set(c2_opt)
+        ) == all_nodes, f"{opt_name}: coverage on {tsp_file}"
+        assert (
+            abs(len(c1_opt) - len(c2_opt)) <= 1
+        ), f"{opt_name}: Cycles are of different length on {tsp_file}"
 
-        assert cost_after <= cost_before, (
-            f"{opt_name}: cost did not improve ({cost_before} → {cost_after}) on {tsp_file}"
-        )
+        assert (
+            cost_after <= cost_before
+        ), f"{opt_name}: cost did not improve ({cost_before} → {cost_after}) on {tsp_file}"
 
 
 def test_local_search_optimized_performance(
@@ -72,9 +79,9 @@ def test_local_search_optimized_performance(
             assert set(c1_opt).isdisjoint(c2_opt)
             assert (set(c1_opt) | set(c2_opt)) == set(range(n))
 
-            assert cost_opt <= cost_base, (
-                f"{name}: cost {cost_opt} > baseline {cost_base} on {tsp_file}"
-            )
-            assert t_opt <= t_std, (
-                f"{name}: too slow {t_opt:.4f}s vs baseline {t_std:.4f}s on {tsp_file}"
-            )
+            assert (
+                cost_opt <= cost_base
+            ), f"{name}: cost {cost_opt} > baseline {cost_base} on {tsp_file}"
+            assert (
+                t_opt <= t_std
+            ), f"{name}: too slow {t_opt:.4f}s vs baseline {t_std:.4f}s on {tsp_file}"

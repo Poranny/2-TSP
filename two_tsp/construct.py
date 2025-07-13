@@ -12,7 +12,7 @@ def generate_random_two_cycles(n: int) -> Tuple[List[int], List[int]]:
 
 
 def greedy_nearest_neighbor(
-    distance_matrix: List[List[int]],
+    distance_matrix: List[List[float]],
 ) -> Tuple[List[int], List[int]]:
     n = len(distance_matrix)
     if n == 0:
@@ -39,7 +39,7 @@ def greedy_nearest_neighbor(
     return cycle1, cycle2
 
 
-def greedy_cycle(distance_matrix: List[List[int]]) -> Tuple[List[int], List[int]]:
+def greedy_cycle(distance_matrix: List[List[float]]) -> Tuple[List[int], List[int]]:
     n = len(distance_matrix)
     if n == 0:
         return [], []
@@ -91,7 +91,7 @@ def greedy_cycle(distance_matrix: List[List[int]]) -> Tuple[List[int], List[int]
 
 
 def regret_cycle(
-    distance_matrix: List[List[int]], weighted: bool, alpha: float = 0.75
+    distance_matrix: List[List[float]], weighted: bool, alpha: float = 0.75
 ) -> Tuple[List[int], List[int]]:
     n = len(distance_matrix)
     if n == 0:
