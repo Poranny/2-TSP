@@ -27,3 +27,16 @@ def cycles_cost(
     distance_matrix: List[List[int]], cycle1: List[int], cycle2: List[int]
 ) -> int:
     return cycle_cost(distance_matrix, cycle1) + cycle_cost(distance_matrix, cycle2)
+
+def delta_vertex(distance_matrix: List[List[int]], cycle: List[int], i: int, j: int) -> int:
+    before = cycle_cost(distance_matrix, cycle)
+    cycle[i], cycle[j] = cycle[j], cycle[i]
+    after = cycle_cost(distance_matrix, cycle)
+    cycle[i], cycle[j] = cycle[j], cycle[i]
+    return after - before
+
+def delta_edge(distance_matrix: List[List[int]], cycle: List[int], i: int, j: int) -> int:
+    before = cycle_cost(distance_matrix, cycle)
+    new_cycle = cycle[: i + 1] + list(reversed(cycle[i + 1 : j + 1])) + cycle[j + 1 :]
+    after = cycle_cost(distance_matrix, new_cycle)
+    return after - before
