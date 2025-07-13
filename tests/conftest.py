@@ -13,10 +13,10 @@ from two_tsp.construct import (
     regret_cycle,
     generate_random_two_cycles,
 )
-
-root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, root)
-
+from two_tsp.local_search import (
+    local_steepest_vertices, local_steepest_edges, local_greedy_vertices,
+    local_greedy_edges, random_walk
+)
 
 @pytest.fixture(scope="session")
 def load_instance_fn():
@@ -34,7 +34,7 @@ def cycles_cost_fn():
 
 
 @pytest.fixture(scope="session")
-def solvers():
+def construct_solvers():
     return {
         "nn": lambda dm: greedy_nearest_neighbor(dm),
         "cycle": lambda dm: greedy_cycle(dm),
@@ -43,10 +43,19 @@ def solvers():
         "random": lambda dm: generate_random_two_cycles(len(dm)),
     }
 
+@pytest.fixture(scope="session")
+def local_search_solvers():
+    return {
+        "steepest_vertices": local_steepest_vertices,
+        "steepest_edges": local_steepest_edges,
+        "greedy_vertices": local_greedy_vertices,
+        "greedy_edges": local_greedy_edges,
+        "random_walk": random_walk,
+    }
 
 @pytest.fixture(scope="session")
 def instances():
-    pattern = os.path.join(root, "instances", "kro", "*.tsp")
+    pattern = os.path.join("test_instances", "*.tsp")
     return glob.glob(pattern)
 
 

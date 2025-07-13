@@ -5,12 +5,12 @@ import pytest
 
 @pytest.mark.parametrize("solver_name", ["nn", "cycle", "regret", "wregret"])
 def test_solution_validity(
-    solver_name, load_instance_fn, compute_distance_matrix_fn, solvers, instances
+    solver_name, load_instance_fn, compute_distance_matrix_fn, construct_solvers, instances
 ) -> None:
     for tsp_file in instances:
         coords = load_instance_fn(tsp_file)
         dm = compute_distance_matrix_fn(coords)
-        c1, c2 = solvers[solver_name](dm)
+        c1, c2 = construct_solvers[solver_name](dm)
 
         n = len(coords)
         all_nodes = set(range(n))
@@ -29,12 +29,12 @@ def test_heuristic_better_than_random(
     solver_name,
     load_instance_fn,
     compute_distance_matrix_fn,
-    solvers,
+        construct_solvers,
     instances,
     cycles_cost_fn,
 ) -> None:
-    random_solver = solvers["random"]
-    heuristic_solver = solvers[solver_name]
+    random_solver = construct_solvers["random"]
+    heuristic_solver = construct_solvers[solver_name]
 
     for tsp_file in instances:
         coords = load_instance_fn(tsp_file)
