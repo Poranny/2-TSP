@@ -1,5 +1,4 @@
 # mypy: disable-error-code=no-untyped-def
-import os
 import glob
 import random
 from pathlib import Path
