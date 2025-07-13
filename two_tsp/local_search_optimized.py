@@ -1,12 +1,9 @@
-from typing import List, Tuple, Set
+from typing import List, Tuple
 
 from two_tsp.helpers import (
     delta_2opt,
-    delta_between,
     check_all_edges,
     apply_2opt,
-    check_all_edges_two_cycles,
-    apply_between,
     find_nearest_neighbors,
 )
 
