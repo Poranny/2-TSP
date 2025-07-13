@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -24,7 +24,7 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-where = ["two_tsp"]
+where = ["."]
 
 [tool.mypy]
 strict = true
