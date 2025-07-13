@@ -32,6 +32,7 @@ where = ["."]
 [tool.mypy]
 strict = true
 exclude = "build/"
+ignore_missing_imports = true
 
 [tool.black]
 line-length = 88

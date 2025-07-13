@@ -1,3 +1,4 @@
+# mypy: disable-error-code=no-untyped-def
 import os
 import pytest
 
@@ -5,7 +6,7 @@ import pytest
 @pytest.mark.parametrize("solver_name", ["nn", "cycle", "regret", "wregret"])
 def test_solution_validity(
     solver_name, load_instance_fn, compute_distance_matrix_fn, solvers, instances
-):
+) -> None:
     for tsp_file in instances:
         coords = load_instance_fn(tsp_file)
         dm = compute_distance_matrix_fn(coords)
@@ -30,7 +31,7 @@ def test_heuristic_better_than_random(
     solvers,
     instances,
     cycles_cost_fn,
-):
+) -> None:
     random_solver = solvers["random"]
     heuristic_solver = solvers[solver_name]
 

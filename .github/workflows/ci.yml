@@ -36,7 +36,8 @@ jobs:
 
       - name: Black
         run: black --check .
-
+      - name: Mypy
+        run: mypy .
       - name: Run tests with coverage
         run: |
           pytest --cov=two_tsp --cov-report=xml --cov-report=term-missing -q

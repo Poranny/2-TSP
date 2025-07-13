@@ -1,5 +1,5 @@
 import random
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 
 def generate_random_two_cycles(n: int) -> Tuple[List[int], List[int]]:
@@ -61,7 +61,7 @@ def greedy_cycle(distance_matrix: List[List[int]]) -> Tuple[List[int], List[int]
     else:
         cycle2 = []
 
-    def ins_cost(cycle, i, v):
+    def ins_cost(cycle : List[int], i : int, v : int) -> float:
         j = (i + 1) % len(cycle)
         return (
             distance_matrix[cycle[i]][v]
@@ -73,13 +73,16 @@ def greedy_cycle(distance_matrix: List[List[int]]) -> Tuple[List[int], List[int]
     while verts:
         current = cycle1 if turn == 0 else cycle2
         best_inc = float("inf")
-        best = (None, None, None)
+        best: Optional[Tuple[List[int], int, int]] = None
         for i in range(len(current)):
             for v in verts:
                 inc = ins_cost(current, i, v)
                 if inc < best_inc:
                     best_inc = inc
                     best = (current, i + 1, v)
+
+        if best is None:
+            raise RuntimeError("No insertion found.")
         cyc, idx, vert = best
         cyc.insert(idx, vert)
         verts.remove(vert)

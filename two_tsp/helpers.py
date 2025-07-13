@@ -2,7 +2,7 @@ import math
 from typing import List
 
 
-def compute_distance_matrix(coordinates: List[tuple]) -> List[List[int]]:
+def compute_distance_matrix(coordinates: List[tuple[float, float]]) -> List[List[int]]:
     n = len(coordinates)
     matrix = [[0] * n for _ in range(n)]
     for i in range(n):
