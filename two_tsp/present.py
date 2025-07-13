@@ -19,16 +19,22 @@ def plot_solution(ax, cycle1, cycle2, coords, title):
     ax.set_aspect('equal')
     ax.grid(True)
 
-def plot_solutions(tsp_file, coords, solution, cost):
-    output_dir = "wykresy"
+
+def plot_solutions(tsp_file, coords, solution, cost, show=False):
+    output_dir = "charts"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
     basename = os.path.basename(tsp_file).replace('.tsp', '')
-
     fig, ax = plt.subplots(figsize=(8, 6))
     plot_solution(ax, solution[0], solution[1], coords,
                   f"Solution for {basename}\nCost: {cost:.2f}")
-    plt.savefig(os.path.join(output_dir, f"{basename}.png"), dpi=300)
-    plt.close()
+
+    out_path = os.path.join(output_dir, f"{basename}.png")
+    plt.savefig(out_path, dpi=300)
+    if show:
+        plt.show()
+    else:
+        plt.close()
+
 
