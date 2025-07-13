@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "two-tsp"
+version = "0.1.0"
+description = "Algorithms for 2-TSP with heuristics and helpers"
+authors = [
+  { name = "Your Name", email = "your.email@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-cov",
+  "ruff",
+  "black",
+  "mypy",
+  "build"
+]
+
+[tool.setuptools.packages.find]
+where = ["two_tsp"]
+
+[tool.mypy]
+strict = true
+exclude = "build/"
+
+[tool.black]
+line-length = 88
+
+[tool.ruff]
+line-length = 88
+exclude = ["build", ".venv"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
+testpaths = ["tests"]
