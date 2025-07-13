@@ -72,7 +72,7 @@ def local_search_optimized_solvers():
 
 @pytest.fixture(scope="session")
 def instances():
-    pattern = os.path.join("test_instances", "*.tsp")
+    pattern = os.path.join("tests", "test_instances", "*.tsp")
     return glob.glob(pattern)
 
 
