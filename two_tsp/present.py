@@ -5,7 +5,13 @@ from matplotlib.axes import Axes
 import matplotlib.pyplot as plt
 
 
-def plot_solution(ax : Axes, cycle1 : List[int], cycle2 : List[int], coords : List[Tuple[float, float]], title : str) -> None:
+def plot_solution(
+    ax: Axes,
+    cycle1: List[int],
+    cycle2: List[int],
+    coords: List[Tuple[float, float]],
+    title: str,
+) -> None:
     x1 = [coords[node][0] for node in cycle1]
     y1 = [coords[node][1] for node in cycle1]
     x1.append(x1[0])
@@ -23,7 +29,13 @@ def plot_solution(ax : Axes, cycle1 : List[int], cycle2 : List[int], coords : Li
     ax.grid(True)
 
 
-def plot_solutions(tsp_file : str, coords : List[Tuple[float, float]], solution : Tuple[List[int], List[int]], cost : float, show : bool = False)  -> None:
+def plot_solutions(
+    tsp_file: str,
+    coords: List[Tuple[float, float]],
+    solution: Tuple[List[int], List[int]],
+    cost: float,
+    show: bool = False,
+) -> None:
     output_dir = "charts"
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)

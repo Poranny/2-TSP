@@ -61,7 +61,7 @@ def greedy_cycle(distance_matrix: List[List[int]]) -> Tuple[List[int], List[int]
     else:
         cycle2 = []
 
-    def ins_cost(cycle : List[int], i : int, v : int) -> float:
+    def ins_cost(cycle: List[int], i: int, v: int) -> float:
         j = (i + 1) % len(cycle)
         return (
             distance_matrix[cycle[i]][v]
