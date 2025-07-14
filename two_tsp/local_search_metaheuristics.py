@@ -10,7 +10,7 @@ from two_tsp.local_search import local_steepest_edges
 
 
 def msls(
-    coords: List[List[Tuple[float]]], dist: List[List[float]], num_iterations: int = 200
+    coords: List[List[Tuple[float]]], dist: List[List[float]], num_iterations: int = 50
 ) -> Tuple[List[int], List[int]]:
     best_sol = None
     best_cost = float("inf")
@@ -55,7 +55,7 @@ def ils(
     coords: List[List[Tuple[float, float]]],
     dist: List[List[float]],
     perturbation_intensity: int = 1,
-    num_iterations: int = 200,
+    num_iterations: int = 50,
 ) -> Tuple[List[int], List[int]]:
     c1r, c2r = construct_random(len(coords))
     c1, c2 = local_steepest_edges(c1r, c2r, dist)
@@ -95,7 +95,7 @@ def lns(
     coords: List[List[Tuple[float, float]]],
     dist: List[List[float]],
     removal_rate: float = 0.3,
-    num_iterations: int = 200,
+    num_iterations: int = 50,
     is_local_also: bool = False,
 ) -> Tuple[List[int], List[int]]:
     c1, c2 = construct_random(len(coords))

@@ -20,6 +20,7 @@ from two_tsp.local_search import (
     local_greedy_edges,
     random_walk,
 )
+from two_tsp.local_search_metaheuristics import msls, ils, lns
 from two_tsp.local_search_optimized import (
     local_search_with_move_list,
     local_search_with_candidates,
@@ -68,6 +69,15 @@ def local_search_optimized_solvers():
     return {
         "move_list": local_search_with_move_list,
         "candidates": local_search_with_candidates,
+    }
+
+
+@pytest.fixture(scope="session")
+def local_search_meta_solvers():
+    return {
+        "msls": msls,
+        "ils": ils,
+        "lns": lns,
     }
 
 
