@@ -6,7 +6,7 @@ from two_tsp.construct import (
     insertion_weighted_regret,
 )
 from two_tsp.helpers import cycles_cost
-from two_tsp.local_search import local_steepest_edges
+from two_tsp.local_search_optimized import local_search_with_move_list
 
 
 def msls(
@@ -17,7 +17,7 @@ def msls(
 
     for _ in range(num_iterations):
         c1, c2 = construct_random(len(coords))
-        ls_c1, ls_c2 = local_steepest_edges(c1, c2, dist)
+        ls_c1, ls_c2 = local_search_with_move_list(c1, c2, dist)
         cost = cycles_cost(dist, ls_c1, ls_c2)
         if cost < best_cost:
             best_cost = cost
@@ -58,12 +58,12 @@ def ils(
     num_iterations: int = 50,
 ) -> Tuple[List[int], List[int]]:
     c1r, c2r = construct_random(len(coords))
-    c1, c2 = local_steepest_edges(c1r, c2r, dist)
+    c1, c2 = local_search_with_move_list(c1r, c2r, dist)
     best_cost = cycles_cost(dist, c1, c2)
 
     for iters in range(num_iterations):
         y_c1, y_c2 = perturbation_ils(c1, c2, intensity=perturbation_intensity)
-        y_c1, y_c2 = local_steepest_edges(y_c1, y_c2, dist)
+        y_c1, y_c2 = local_search_with_move_list(y_c1, y_c2, dist)
         y_cost = cycles_cost(dist, y_c1, y_c2)
 
         if y_cost < best_cost:
@@ -99,7 +99,7 @@ def lns(
     is_local_also: bool = False,
 ) -> Tuple[List[int], List[int]]:
     c1, c2 = construct_random(len(coords))
-    c1, c2 = local_steepest_edges(c1, c2, dist)
+    c1, c2 = local_search_with_move_list(c1, c2, dist)
     best_cost = cycles_cost(dist, c1, c2)
 
     for iters in range(num_iterations):
@@ -109,7 +109,7 @@ def lns(
         )
 
         if is_local_also:
-            d_c1, d_c2 = local_steepest_edges(d_c1, d_c2, dist)
+            d_c1, d_c2 = local_search_with_move_list(d_c1, d_c2, dist)
 
         new_cost = cycles_cost(dist, d_c1, d_c2)
 

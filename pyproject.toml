@@ -7,7 +7,7 @@ name = "two-tsp"
 version = "0.1.0"
 description = "Algorithms for 2-TSP with heuristics and helpers"
 authors = [
-  { name = "Your Name", email = "your.email@example.com" }
+  { name = "Adam Malinowski", email = "adam@poranny.it" }
 ]
 readme = "README.md"
 requires-python = ">=3.11"
