@@ -81,11 +81,11 @@ def local_search_meta_solvers():
         "lns": lns,
     }
 
+
 @pytest.fixture(scope="session")
 def evo_solvers():
-    return {
-        "hae": hae
-    }
+    return {"hae": hae}
+
 
 @pytest.fixture(scope="session")
 def instances():

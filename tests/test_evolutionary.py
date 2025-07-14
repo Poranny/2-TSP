@@ -36,9 +36,13 @@ def test_hae_validity_and_cost(
         all_nodes = set(range(n))
 
         assert set(c1).isdisjoint(c2), f"HAE {mutate_flag}: overlap on {tsp_file}"
-        assert (set(c1) | set(c2)) == all_nodes, f"HAE {mutate_flag}: coverage on {tsp_file}"
-        assert abs(len(c1) - len(c2)) <= 1, f"HAE {mutate_flag}: uneven length on {tsp_file}"
+        assert (
+            set(c1) | set(c2)
+        ) == all_nodes, f"HAE {mutate_flag}: coverage on {tsp_file}"
+        assert (
+            abs(len(c1) - len(c2)) <= 1
+        ), f"HAE {mutate_flag}: uneven length on {tsp_file}"
 
-        assert cost <= base_cost, (
-            f"HAE {mutate_flag}: cost {cost} > baseline {base_cost} on {tsp_file}"
-        )
+        assert (
+            cost <= base_cost
+        ), f"HAE {mutate_flag}: cost {cost} > baseline {base_cost} on {tsp_file}"
