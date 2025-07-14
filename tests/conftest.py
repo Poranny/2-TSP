@@ -8,10 +8,10 @@ import pytest
 from two_tsp.loader import load_instance
 from two_tsp.helpers import compute_distance_matrix, cycles_cost
 from two_tsp.construct import (
-    greedy_nearest_neighbor,
-    greedy_cycle,
-    regret_cycle,
-    generate_random_two_cycles,
+    construct_nearest_neighbour,
+    construct_greedy_cycle,
+    construct_weighted_regret,
+    construct_random,
 )
 from two_tsp.local_search import (
     local_steepest_vertices,
@@ -44,11 +44,11 @@ def cycles_cost_fn():
 @pytest.fixture(scope="session")
 def construct_solvers():
     return {
-        "nn": lambda dm: greedy_nearest_neighbor(dm),
-        "cycle": lambda dm: greedy_cycle(dm),
-        "regret": lambda dm: regret_cycle(dm, weighted=False),
-        "wregret": lambda dm: regret_cycle(dm, weighted=True, alpha=0.75),
-        "random": lambda dm: generate_random_two_cycles(len(dm)),
+        "nn": lambda dm: construct_nearest_neighbour(dm),
+        "cycle": lambda dm: construct_greedy_cycle(dm),
+        "regret": lambda dm: construct_weighted_regret(dm, weighted=False),
+        "wregret": lambda dm: construct_weighted_regret(dm, weighted=True, alpha=0.75),
+        "random": lambda dm: construct_random(len(dm)),
     }
 
 

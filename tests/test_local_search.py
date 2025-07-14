@@ -1,7 +1,7 @@
 # mypy: disable-error-code=no-untyped-def
 import os
 import pytest
-from two_tsp.construct import generate_random_two_cycles
+from two_tsp.construct import construct_random
 
 
 @pytest.mark.parametrize(
@@ -26,7 +26,7 @@ def test_local_search_improves(
     for tsp_file in instances:
         coords = load_instance_fn(tsp_file)
         dm = compute_distance_matrix_fn(coords)
-        initial_c1, initial_c2 = generate_random_two_cycles(len(dm))
+        initial_c1, initial_c2 = construct_random(len(dm))
         new_c1, new_c2 = method(initial_c1, initial_c2, dm)
 
         n = len(dm)

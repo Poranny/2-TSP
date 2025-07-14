@@ -1,8 +1,8 @@
 import random
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Sequence
 
 
-def generate_random_two_cycles(n: int) -> Tuple[List[int], List[int]]:
+def construct_random(n: int) -> Tuple[List[int], List[int]]:
     indices = list(range(n))
     random.shuffle(indices)
     half = n // 2
@@ -11,7 +11,7 @@ def generate_random_two_cycles(n: int) -> Tuple[List[int], List[int]]:
     return cycle1, cycle2
 
 
-def greedy_nearest_neighbor(
+def construct_nearest_neighbour(
     distance_matrix: List[List[float]],
 ) -> Tuple[List[int], List[int]]:
     n = len(distance_matrix)
@@ -39,7 +39,9 @@ def greedy_nearest_neighbor(
     return cycle1, cycle2
 
 
-def greedy_cycle(distance_matrix: List[List[float]]) -> Tuple[List[int], List[int]]:
+def construct_greedy_cycle(
+    distance_matrix: List[List[float]],
+) -> Tuple[List[int], List[int]]:
     n = len(distance_matrix)
     if n == 0:
         return [], []
@@ -90,7 +92,7 @@ def greedy_cycle(distance_matrix: List[List[float]]) -> Tuple[List[int], List[in
     return cycle1, cycle2
 
 
-def regret_cycle(
+def construct_weighted_regret(
     distance_matrix: List[List[float]], weighted: bool, alpha: float = 0.75
 ) -> Tuple[List[int], List[int]]:
     n = len(distance_matrix)
@@ -142,4 +144,40 @@ def regret_cycle(
         current.insert(pos, vtx)
         verts.remove(vtx)
         turn ^= 1
+    return cycle1, cycle2
+
+
+def insertion_weighted_regret(
+    cycle1: List[int],
+    cycle2: List[int],
+    removed: List[int],
+    dist: Sequence[Sequence[float]],
+    alpha: float = 0.75,
+) -> Tuple[List[int], List[int]]:
+    def ins_cost(cyc: List[int], i: int, v: int) -> float:
+        a, b = cyc[i], cyc[(i + 1) % len(cyc)]
+        return dist[a][v] + dist[v][b] - dist[a][b]
+
+    while removed:
+        len_diff = len(cycle1) - len(cycle2)
+        shorter = cycle2 if len_diff > 0 else cycle1
+
+        best_vertex, best_pos, best_regret = None, None, -float("inf")
+
+        for v in removed:
+            m = len(shorter)
+            costs = [(ins_cost(shorter, i, v), i + 1) for i in range(m)]
+            costs.sort(key=lambda x: x[0])
+            best_inc, best_pos_tmp = costs[0]
+            second_inc = costs[1][0] if m > 1 else best_inc
+            regret = alpha * (second_inc - best_inc) - (1 - alpha) * best_inc
+
+            if regret > best_regret:
+                best_vertex, best_pos, best_regret = v, best_pos_tmp, regret
+
+        if best_vertex is not None and best_pos is not None:
+            shorter.insert(best_pos, best_vertex)
+            removed.remove(best_vertex)
+        else:
+            raise ValueError("No vertex found.")
     return cycle1, cycle2
