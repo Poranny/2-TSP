@@ -5,23 +5,24 @@ from pathlib import Path
 
 import pytest
 
-from two_tsp.loader import load_instance
-from two_tsp.helpers import compute_distance_matrix, cycles_cost
-from two_tsp.construct import (
+from two_tsp.core.evolutionary import hae
+from two_tsp.utils.loader import load_instance
+from two_tsp.core.helpers import compute_distance_matrix, cycles_cost
+from two_tsp.core.construct import (
     construct_nearest_neighbour,
     construct_greedy_cycle,
     construct_weighted_regret,
     construct_random,
 )
-from two_tsp.local_search import (
+from two_tsp.core.local_search import (
     local_steepest_vertices,
     local_steepest_edges,
     local_greedy_vertices,
     local_greedy_edges,
     random_walk,
 )
-from two_tsp.local_search_metaheuristics import msls, ils, lns
-from two_tsp.local_search_optimized import (
+from two_tsp.core.local_search_metaheuristics import msls, ils, lns
+from two_tsp.core.local_search_optimized import (
     local_search_with_move_list,
     local_search_with_candidates,
 )
@@ -80,6 +81,11 @@ def local_search_meta_solvers():
         "lns": lns,
     }
 
+@pytest.fixture(scope="session")
+def evo_solvers():
+    return {
+        "hae": hae
+    }
 
 @pytest.fixture(scope="session")
 def instances():

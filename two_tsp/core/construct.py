@@ -162,6 +162,11 @@ def insertion_weighted_regret(
         len_diff = len(cycle1) - len(cycle2)
         shorter = cycle2 if len_diff > 0 else cycle1
 
+        if not shorter:
+            v = removed.pop(0)
+            (cycle1 if shorter is cycle2 else cycle2).append(v)
+            continue
+
         best_vertex, best_pos, best_regret = None, None, -float("inf")
 
         for v in removed:

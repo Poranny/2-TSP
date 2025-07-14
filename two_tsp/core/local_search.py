@@ -1,7 +1,7 @@
 import random
 import time
 from typing import List, Tuple
-from two_tsp.helpers import cycles_cost, delta_vertex, delta_edge
+from two_tsp.core.helpers import cycles_cost, delta_vertex, delta_edge
 
 
 def local_steepest_vertices(

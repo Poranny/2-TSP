@@ -1,16 +1,16 @@
 import random
 from typing import Tuple, List
 
-from two_tsp.construct import (
+from two_tsp.core.construct import (
     construct_random,
     insertion_weighted_regret,
 )
-from two_tsp.helpers import cycles_cost
-from two_tsp.local_search_optimized import local_search_with_move_list
+from two_tsp.core.helpers import cycles_cost
+from two_tsp.core.local_search_optimized import local_search_with_move_list
 
 
 def msls(
-    coords: List[List[Tuple[float]]], dist: List[List[float]], num_iterations: int = 50
+    coords: List[List[Tuple[float]]], dist: List[List[float]], num_iterations: int = 25
 ) -> Tuple[List[int], List[int]]:
     best_sol = None
     best_cost = float("inf")
@@ -55,7 +55,7 @@ def ils(
     coords: List[List[Tuple[float, float]]],
     dist: List[List[float]],
     perturbation_intensity: int = 1,
-    num_iterations: int = 50,
+    num_iterations: int = 25,
 ) -> Tuple[List[int], List[int]]:
     c1r, c2r = construct_random(len(coords))
     c1, c2 = local_search_with_move_list(c1r, c2r, dist)
@@ -95,7 +95,7 @@ def lns(
     coords: List[List[Tuple[float, float]]],
     dist: List[List[float]],
     removal_rate: float = 0.3,
-    num_iterations: int = 50,
+    num_iterations: int = 25,
     is_local_also: bool = False,
 ) -> Tuple[List[int], List[int]]:
     c1, c2 = construct_random(len(coords))

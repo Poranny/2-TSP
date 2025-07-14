@@ -2,8 +2,8 @@
 import time
 import pytest
 
-from two_tsp.local_search import local_steepest_edges
-from two_tsp.local_search_optimized import (
+from two_tsp.core.local_search import local_steepest_edges
+from two_tsp.core.local_search_optimized import (
     local_search_with_move_list,
     local_search_with_candidates,
 )

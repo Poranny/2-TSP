@@ -1,7 +1,7 @@
 # mypy: disable-error-code=no-untyped-def
 import os
 import pytest
-from two_tsp.construct import construct_random
+from two_tsp.core.construct import construct_random
 
 
 @pytest.mark.parametrize(

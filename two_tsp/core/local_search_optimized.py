@@ -1,6 +1,6 @@
 from typing import List, Tuple
 
-from two_tsp.helpers import (
+from two_tsp.core.helpers import (
     delta_2opt,
     check_all_edges,
     apply_2opt,

@@ -1,8 +1,8 @@
 import random
 
-from two_tsp.construct import construct_random, insertion_weighted_regret
-from two_tsp.helpers import cycles_cost
-from two_tsp.local_search_optimized import local_search_with_move_list
+from two_tsp.core.construct import construct_random, insertion_weighted_regret
+from two_tsp.core.helpers import cycles_cost
+from two_tsp.core.local_search_optimized import local_search_with_move_list
 
 
 def recombine(parents):
@@ -75,11 +75,11 @@ def mutate(cycles):
     return new_c1, new_c2
 
 
-def hae(coords, distance_matrix, iterations, population=20, should_mutate=False):
+def hae(distance_matrix, iterations, population=20, should_mutate=False):
     population_list = []
 
     while len(population_list) < population:
-        new_cycles = construct_random(coords)
+        new_cycles = construct_random(len(distance_matrix))
         new_cycles_local = local_search_with_move_list(
             new_cycles[0], new_cycles[1], distance_matrix
         )
@@ -94,8 +94,9 @@ def hae(coords, distance_matrix, iterations, population=20, should_mutate=False)
         parents = random.sample(population_list, 2)
         child, removed = recombine(parents)
         insertion_weighted_regret(child[0], child[1], removed, distance_matrix)
-
-        mutations = random.randrange(int(pow(len(child[0]), 0.4)))
+        if not child[0] or not child[1]:
+            continue
+        mutations = random.randrange(max(1, int(pow(len(child[0]), 0.4))))
 
         if should_mutate:
             for i in range(mutations):
