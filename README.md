@@ -1,4 +1,4 @@
-[![CI](https://github.com/Poranny/2-TSP/actions/workflows/ci.yml/badge.svg)](https://github.com/Poranny/Sssnake/actions) [![codecov](https://codecov.io/gh/Poranny/2-TSP/graph/badge.svg?token=W1WXPE0X2H)](https://codecov.io/gh/Poranny/2-TSP) ![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)
+[![CI](https://github.com/Poranny/2-TSP/actions/workflows/ci.yml/badge.svg)](https://github.com/Poranny/Sssnake/actions) [![codecov](https://codecov.io/gh/Poranny/Two-TSP/graph/badge.svg?token=W1WXPE0X2H)](https://codecov.io/gh/Poranny/Two-TSP) ![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)
 
 # 2-TSP solver
 
