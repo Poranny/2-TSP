@@ -78,7 +78,7 @@ def hae(
 
     while len(population_list) < population:
         cycles = construct_random(len(distance_matrix))
-        cycles_ls = local_search_with_move_list(cycles[0], cycles[1], distance_matrix)
+        cycles_ls = local_search_with_move_list(distance_matrix, cycles[0], cycles[1])
         cost = cycles_cost(distance_matrix, cycles_ls[0], cycles_ls[1])
         if all(cost != c for (_, c) in population_list):
             population_list.append((cycles_ls, cost))
@@ -97,7 +97,7 @@ def hae(
             for _ in range(random.randrange(mut_range)):
                 child = mutate(child)
 
-        child = local_search_with_move_list(child[0], child[1], distance_matrix)
+        child = local_search_with_move_list(distance_matrix, child[0], child[1])
         child_cost = cycles_cost(distance_matrix, child[0], child[1])
 
         if any(c == child_cost for (_, c) in population_list):

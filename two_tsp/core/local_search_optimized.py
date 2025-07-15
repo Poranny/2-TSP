@@ -12,7 +12,7 @@ Move = Tuple[float, str, Tuple[int, int], List[Edge], List[Edge]]
 
 
 def local_search_with_move_list(
-    cycle1: List[int], cycle2: List[int], distance_matrix: List[List[float]]
+    distance_matrix: List[List[float]], cycle1: List[int], cycle2: List[int]
 ) -> Tuple[List[int], List[int]]:
     c1: List[int] = cycle1[:]
     c2: List[int] = cycle2[:]
@@ -130,9 +130,9 @@ def local_search_with_move_list(
 
 
 def local_search_with_candidates(
+    distance_matrix: List[List[float]],
     cycle1: List[int],
     cycle2: List[int],
-    distance_matrix: List[List[float]],
     k: int = 10,
 ) -> Tuple[List[int], List[int]]:
     c1: List[int] = cycle1[:]

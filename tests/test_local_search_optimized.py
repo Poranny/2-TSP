@@ -32,7 +32,7 @@ def test_local_search_optimized_validity_and_cost(
         c1, c2 = construct_solvers["regret"](dm)
         cost_before = cycles_cost_fn(dm, c1, c2)
 
-        c1_opt, c2_opt = opt_fn(c1, c2, dm)
+        c1_opt, c2_opt = opt_fn(dm, c1, c2)
         cost_after = cycles_cost_fn(dm, c1_opt, c2_opt)
 
         n = len(coords)
@@ -65,12 +65,12 @@ def test_local_search_optimized_performance(
         c1, c2 = construct_solvers["regret"](dm)
 
         t0 = time.perf_counter()
-        c1_std, c2_std = local_steepest_edges(c1[:], c2[:], dm)
+        _, _ = local_steepest_edges(c1[:], c2[:], dm)
         t_std = time.perf_counter() - t0
 
         for name, fn in local_search_optimized_solvers.items():
             t0 = time.perf_counter()
-            c1_opt, c2_opt = fn(c1[:], c2[:], dm)
+            c1_opt, c2_opt = fn(dm, c1[:], c2[:])
             t_opt = time.perf_counter() - t0
             cost_opt = cycles_cost_fn(dm, c1_opt, c2_opt)
             cost_base = cycles_cost_fn(dm, c1, c2)
