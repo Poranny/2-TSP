@@ -10,13 +10,13 @@ from two_tsp.core.local_search_optimized import local_search_with_move_list
 
 
 def msls(
-    coords: List[List[Tuple[float]]], dist: List[List[float]], num_iterations: int = 25
+    dist: List[List[float]], num_iterations: int = 25
 ) -> Tuple[List[int], List[int]]:
     best_sol = None
     best_cost = float("inf")
 
     for _ in range(num_iterations):
-        c1, c2 = construct_random(len(coords))
+        c1, c2 = construct_random(len(dist))
         ls_c1, ls_c2 = local_search_with_move_list(c1, c2, dist)
         cost = cycles_cost(dist, ls_c1, ls_c2)
         if cost < best_cost:
@@ -52,12 +52,11 @@ def perturbation_ils(
 
 
 def ils(
-    coords: List[List[Tuple[float, float]]],
     dist: List[List[float]],
     perturbation_intensity: int = 1,
     num_iterations: int = 25,
 ) -> Tuple[List[int], List[int]]:
-    c1r, c2r = construct_random(len(coords))
+    c1r, c2r = construct_random(len(dist))
     c1, c2 = local_search_with_move_list(c1r, c2r, dist)
     best_cost = cycles_cost(dist, c1, c2)
 
@@ -92,13 +91,12 @@ def perturbation_lns(
 
 
 def lns(
-    coords: List[List[Tuple[float, float]]],
     dist: List[List[float]],
     removal_rate: float = 0.3,
     num_iterations: int = 25,
     is_local_also: bool = False,
 ) -> Tuple[List[int], List[int]]:
-    c1, c2 = construct_random(len(coords))
+    c1, c2 = construct_random(len(dist))
     c1, c2 = local_search_with_move_list(c1, c2, dist)
     best_cost = cycles_cost(dist, c1, c2)
 

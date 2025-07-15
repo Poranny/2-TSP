@@ -93,7 +93,7 @@ def construct_greedy_cycle(
 
 
 def construct_weighted_regret(
-    distance_matrix: List[List[float]], weighted: bool, alpha: float = 0.75
+    distance_matrix: List[List[float]], weighted: bool = True, alpha: float = 0.75
 ) -> Tuple[List[int], List[int]]:
     n = len(distance_matrix)
     if n == 0:

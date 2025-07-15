@@ -24,7 +24,7 @@ def test_local_search_metaheuristics_validity_and_cost(
         all_nodes = set(range(n))
 
         for meta_name, meta_fn in local_search_meta_solvers.items():
-            c1, c2 = meta_fn(coords, dm)
+            c1, c2 = meta_fn(dm)
             cost = cycles_cost_fn(dm, c1, c2)
 
             assert set(c1).isdisjoint(c2), f"{meta_name}: overlap on {tsp_file}"

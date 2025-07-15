@@ -71,7 +71,7 @@ def hae(
     distance_matrix: List[List[float]],
     iterations: int,
     population: int = 20,
-    should_mutate: bool = False,
+    should_mutate: bool = True,
 ) -> Tuple[List[int], List[int]]:
 
     population_list: List[Tuple[Tuple[List[int], List[int]], float]] = []
