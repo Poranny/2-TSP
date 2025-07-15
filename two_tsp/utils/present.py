@@ -51,7 +51,7 @@ def plot_solutions(
     )
 
     out_path = os.path.join(output_dir, f"{basename}.png")
-    plt.savefig(out_path, dpi=300)
+    plt.savefig(out_path, bbox_inches="tight", dpi=300)
     if show:
         plt.show()
     else:
