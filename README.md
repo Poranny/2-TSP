@@ -10,3 +10,5 @@ A comprehensive Python implementation of heuristic algorithms for the 2-cycle Tr
 
 Core features are verified using rudimentary pytest tests.
 Simple solution visualization using matplotlib is also included.
+#### Sample plot for kroA100 - HAE + LS
+<img src="two_tsp/utils/charts/kroA100.png" alt="Plot for kroA100 - HAE + LS" width="400"/>
